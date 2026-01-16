@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: 29-Circuit-Breaker-App
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+        
+resilience4j:
+  circuitbreaker:
+    configs:
+      ashokit:
+         registerHealthIndicator: true
+         slidingWindowSize: 10
+         minimumNumberOfCalls: 5
+         failureRateThreshold: 50
+         waitDurationInOpenState: 100s
+         automaticTransitionFromOpenToHalfOpenEnabled: true
+         permittedNumberOfCallsInHalfOpenState: 3
